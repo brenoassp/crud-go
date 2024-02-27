@@ -10,10 +10,10 @@ RUN go mod download
 # Copy the source from the current directory to the Working Directory inside the container
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o /api cmd/api/main.go
+RUN go build -o /api ./cmd/api/.
 
 # Start a new stage from scratch:
-FROM alpine:3.11.3
+FROM alpine:3.18
 
 COPY --from=builder /api /api
 

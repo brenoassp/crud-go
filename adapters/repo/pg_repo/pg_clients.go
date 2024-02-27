@@ -50,7 +50,22 @@ func getClients(ctx context.Context, db ksql.Provider, page int, pageSize int) (
 }
 
 func deleteClient(ctx context.Context, db ksql.Provider, id int) error {
-	_, err := db.Exec(ctx, `DELETE FROM clients WHERE id = $1`, id)
+	client := domain.Client{}
+	err := db.QueryOne(ctx, &client, `SELECT * FROM clients WHERE id = $1`, id)
+	if err != nil && err != ksql.ErrRecordNotFound {
+		return domain.InternalErr("unexpected error when fetching client to delete", map[string]interface{}{
+			"id":    id,
+			"error": err.Error(),
+		})
+	}
+
+	if err == ksql.ErrRecordNotFound {
+		return domain.NotFoundErr("client not found", map[string]interface{}{
+			"id": id,
+		})
+	}
+
+	_, err = db.Exec(ctx, `DELETE FROM clients WHERE id = $1`, id)
 	if err != nil {
 		return domain.InternalErr("unexpected error when deleting client", map[string]interface{}{
 			"id":    id,

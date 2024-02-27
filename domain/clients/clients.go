@@ -88,7 +88,7 @@ func (s *Service) CreateClientFromEvent(ctx context.Context, event domain.Create
 
 	err = s.clientsRepo.CreateClient(ctx, client)
 	if err != nil {
-		return fmt.Errorf("failed to create client: %w", err)
+		return err
 	}
 	return nil
 }
@@ -96,7 +96,7 @@ func (s *Service) CreateClientFromEvent(ctx context.Context, event domain.Create
 func (s *Service) DeleteClient(ctx context.Context, id int) error {
 	err := s.clientsRepo.DeleteClient(ctx, id)
 	if err != nil {
-		return fmt.Errorf("failed to delete client: %w", err)
+		return err
 	}
 	return nil
 }
