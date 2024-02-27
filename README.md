@@ -69,7 +69,7 @@ Caso não exista usuário com o ID fornecido, é retornada uma resposta de regis
 
 ## Deleção de um cliente
 
-PATCH {base_url}/clients/:id
+DELETE {base_url}/clients/:id
 
 Essa rota deleta um cliente do banco que possui um determinado id. Caso o usuário não exista, é retornada uma resposta de registro não encontrado.
 
