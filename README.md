@@ -35,7 +35,7 @@ Body:
 }
 ```
 
-Essa rota é responsável por criar um evento de criação de usuário e enviá-lo para uma fila do Rabbitmq para ser processo posteriormente pelo worker.
+Essa rota é responsável por criar um evento de criação de usuário e enviá-lo para uma fila do Rabbitmq para ser processado posteriormente pelo worker.
 O evento criado possui todas essas informações do cliente, mas antes de ser enviado para a fila do Rabbitmq ele é criptografado utilizado criptografia AES para garantir a criptografia dos dados em repouso. Essa é uma abordagem padrão para lidar com dados sensíveis e mais indicada do que apenas criptografar os dados durante o tráfego.
 
 O evento possui o seguinte formato:
